@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 // import App from "./Learn01/App";
 // import App from "./Learn02/App";
-import App from './LearnTailwindcss/App';
+import App from './LessonTailwindcss/App';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
