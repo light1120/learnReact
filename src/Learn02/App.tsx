@@ -5,7 +5,7 @@
  * ProductTable包含 ProductCategoryRow ProductRow
  */
 
-import { useState } from "react";
+import { useState } from 'react';
 
 /* 
 FilterableProductTable
@@ -24,12 +24,12 @@ interface IProduct {
 }
 
 const Products: IProduct[] = [
-  { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
-  { category: "Fruits", price: "$1", stocked: true, name: "Dragonfruit" },
-  { category: "Fruits", price: "$2", stocked: false, name: "Passionfruit" },
-  { category: "Vegetables", price: "$2", stocked: true, name: "Spinach" },
-  { category: "Vegetables", price: "$4", stocked: false, name: "Pumpkin" },
-  { category: "Vegetables", price: "$1", stocked: true, name: "Peas" },
+  { category: 'Fruits', price: '$1', stocked: true, name: 'Apple' },
+  { category: 'Fruits', price: '$1', stocked: true, name: 'Dragonfruit' },
+  { category: 'Fruits', price: '$2', stocked: false, name: 'Passionfruit' },
+  { category: 'Vegetables', price: '$2', stocked: true, name: 'Spinach' },
+  { category: 'Vegetables', price: '$4', stocked: false, name: 'Pumpkin' },
+  { category: 'Vegetables', price: '$1', stocked: true, name: 'Peas' },
 ];
 
 function ProductRow(props: { product: IProduct }) {
@@ -38,7 +38,7 @@ function ProductRow(props: { product: IProduct }) {
       <td>
         <span
           style={{
-            color: props.product.stocked ? "" : "red",
+            color: props.product.stocked ? '' : 'red',
           }}
         >
           {props.product.name}
@@ -57,13 +57,9 @@ function ProductCategoryRow(props: { category: string }) {
   );
 }
 
-function ProductTable(props: {
-  products: IProduct[];
-  filterText: string;
-  isStockedOnly: boolean;
-}) {
+function ProductTable(props: { products: IProduct[]; filterText: string; isStockedOnly: boolean }) {
   const rows: JSX.Element[] = [];
-  let category = "";
+  let category = '';
   props.products.forEach((product) => {
     if (props.isStockedOnly && !product.stocked) {
       return;
@@ -72,12 +68,7 @@ function ProductTable(props: {
       return;
     }
     if (category !== product.category) {
-      rows.push(
-        <ProductCategoryRow
-          category={product.category}
-          key={product.category}
-        />
-      );
+      rows.push(<ProductCategoryRow category={product.category} key={product.category} />);
     }
     rows.push(<ProductRow product={product} key={product.name}></ProductRow>);
     category = product.category;
@@ -122,21 +113,18 @@ function SearchBar(props: {
 }
 
 function FilterableProductTable(props: { products: IProduct[] }) {
-  const [filterText, setFilterText] = useState("");
+  const [filterText, setFilterText] = useState('');
   const [isStockedOnly, setIsStockedOnly] = useState(false);
   return (
     <div>
+      <h1 className="text-3xl font-bold underline"> Hello taiwindcss</h1>
       <SearchBar
         filterText={filterText}
         setFilterText={setFilterText}
         isStockedOnly={isStockedOnly}
         setIsStockedOnly={setIsStockedOnly}
       />
-      <ProductTable
-        products={props.products}
-        filterText={filterText}
-        isStockedOnly={isStockedOnly}
-      />
+      <ProductTable products={props.products} filterText={filterText} isStockedOnly={isStockedOnly} />
     </div>
   );
 }
