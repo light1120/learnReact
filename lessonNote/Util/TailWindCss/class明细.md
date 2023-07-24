@@ -1,4 +1,4 @@
-# TailwindCss
+# TailWindCss class名
 
 ## 尺寸
 
