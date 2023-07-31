@@ -1,18 +1,23 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { Input } from './Input';
-import { TodoContext } from './TodoContext';
+import { TodoContext } from './TodoContextReducer';
 import { toast } from 'react-hot-toast';
 
 export default function AddTodo() {
   const [input, setInput] = useState<string>('');
   const inputRef = useRef<HTMLInputElement>(null);
-  const { addTodo } = useContext(TodoContext)!;
+  // const { addTodo } = useContext(TodoContext)!;
+  const { dispath } = useContext(TodoContext)!;
 
   const handleSubmission = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('form has been submited');
     if (input.trim() !== '') {
-      addTodo(input);
+      // addTodo(input);
+      dispath({
+        text: input,
+        type: 'add'
+      })
       setInput('');
       toast.success('add todo success!');
     } else {

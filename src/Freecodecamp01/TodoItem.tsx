@@ -1,4 +1,4 @@
-import { ITodo, TodoContext } from './TodoContext';
+import { ITodo, TodoContext } from './TodoContextReducer';
 import { motion } from 'framer-motion';
 import cn from 'classnames';
 import { useContext, useEffect, useRef, useState } from 'react';
@@ -14,7 +14,8 @@ export const TodoItem = (props: { todo: ITodo }) => {
   const [editingTodoText, setEditingTodoText] = useState<string>('');
   const [editingTodoId, setEditingTodoId] = useState<string | null>(null);
 
-  const { deleteTodo, editTodo, updateTodoStatus } = useContext(TodoContext)!;
+  // const { deleteTodo, editTodo, updateTodoStatus } = useContext(TodoContext)!;
+  const { dispath } = useContext(TodoContext)!;
 
   const editInputRef = useRef<HTMLInputElement>(null);
 
@@ -32,7 +33,12 @@ export const TodoItem = (props: { todo: ITodo }) => {
 
   const handleUpdate = (todoId: string) => {
     if (editingTodoText.trim() !== '') {
-      editTodo(todoId, editingTodoText);
+      // editTodo(todoId, editingTodoText);
+      dispath({
+        id: todoId,
+        text: editingTodoText,
+        type: 'edit',
+      });
       setEditingTodoId(null);
       setEditingTodoText('');
       toast.success('');
@@ -47,12 +53,20 @@ export const TodoItem = (props: { todo: ITodo }) => {
   };
 
   const handleDelete = (todoId: string) => {
-    deleteTodo(todoId);
+    // deleteTodo(todoId);
+    dispath({
+      id: todoId,
+      type: 'delete',
+    });
     toast.success('Todo deleted successfully');
   };
 
   const handleStatusUpdate = (todoId: string) => {
-    updateTodoStatus(todoId);
+    // updateTodoStatus(todoId);
+    dispath({
+      id: todoId,
+      type: 'updateStatus',
+    });
     toast.success('Todo status updated successfully');
   };
 

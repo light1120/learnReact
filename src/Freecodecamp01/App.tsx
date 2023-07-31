@@ -10,7 +10,7 @@
 import { Toaster } from 'react-hot-toast';
 import AddTodo from './AddTodo';
 import TodoList from './TodoList';
-import { TodoProvider } from './TodoContext';
+import { TodoProvider } from './TodoContextReducer';
 export default function App() {
   return (
     <TodoProvider>
