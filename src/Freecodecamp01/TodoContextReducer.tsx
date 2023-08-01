@@ -7,7 +7,7 @@ export interface ITodo {
   text: string;
   status: 'undone' | 'completed';
 }
-interface ITodoAction {
+export interface ITodoAction {
   id?: string;
   text?: string;
   status?: 'undone' | 'completed';
@@ -39,6 +39,7 @@ export const TodoProvider = (props: { children: React.ReactNode }) => {
 };
 
 function TodoReducer(todos: ITodo[], action: ITodoAction) {
+  // 数组的相关的操作，可能会影响到类型，必要的时候使用 as . 或者定义对象标注类型
   switch (action.type) {
     case 'add': {
       return [
