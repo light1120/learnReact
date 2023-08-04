@@ -159,3 +159,36 @@ function ReactElement(type, key, ref, self, source, owner, props) {
 - 最后调用`ReactElement`返回了一个`element`对象。就是俗称的虚拟Dom。
 - 剩下的就交给`react-dom`的`render`方法，最终生成真实Dom，并更新文档流，显示下浏览器上
 - 如果有嵌套组件，编译时，会加入到`children`属性下，每个组件就是一个`jsxDev`过程，最终生成一个`element`。
+
+## 扩展问题
+
+Q：在React中，{Comp} {Comp()} <Comp />的区别？
+
+```
+const Comp1 = <div>Comp1</div>;
+function Comp2() {
+  return <div>Comp2</div>;
+}
+function Comp3() {
+  return <div>Comp3</div>;
+}
+export default function Test() {
+  return (
+    <div>
+      {Comp1}
+      {Comp2()}
+      <Comp3 />
+    </div>
+  );
+}
+```
+
+编译之后就很清楚，简单了，下面是编译之后的代码简写。前俩者都不会交给 jsx 函数进行处理，所以会导致 react 感知不到这里的渲染，从而导致 hook 的状态丢失等问题。正常下使用第三种写法即可。
+
+```
+export default function Test() {
+  return jsx('div', {
+    children: [Comp1, Comp2(), jsx(Comp3, {})]
+  });
+}
+```
