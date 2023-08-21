@@ -56,4 +56,52 @@
 
 [aHooks](https://ahooks.js.org/)
 
-## 8、react-hook-form
+## 8、[react-hook-form](https://github.com/react-hook-form/react-hook-form)
+
+Performant, flexible and extensible forms with easy-to-use validation
+
+```
+import React from 'react';
+import { useForm } from 'react-hook-form';
+
+export default function App() {
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const onSubmit = data => console.log(data);
+  console.log(errors);
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input type="text" placeholder="First name" {...register("First name", {required: true, maxLength: 80})} />
+      <input type="text" placeholder="Last name" {...register("Last name", {required: true, maxLength: 100})} />
+      <input type="text" placeholder="Email" {...register("Email", {required: true, pattern: /^\S+@\S+$/i})} />
+      <input type="tel" placeholder="Mobile number" {...register("Mobile number", {required: true, minLength: 6, maxLength: 12})} />
+      <select {...register("Title", { required: true })}>
+        <option value="Mr">Mr</option>
+        <option value="Mrs">Mrs</option>
+        <option value="Miss">Miss</option>
+        <option value="Dr">Dr</option>
+      </select>
+
+      <input {...register("Developer", { required: true })} type="radio" value="Yes" />
+      <input {...register("Developer", { required: true })} type="radio" value="No" />
+
+      <input type="submit" />
+    </form>
+  );
+}
+```
+
+## 9、[react-error-boundary](https://github.com/bvaughn/react-error-boundary)
+
+Reusable React error boundary component. Supports all React renderers (including React DOM and React Native)
+
+```
+<ErrorBoundary
+    fallback={<div>Something went wrong</div>}
+    fallbackRender={fallbackRender}
+    onReset={(details) => {  // Reset the state of your app so the error doesn't happen again }}
+    onError={logError}
+>
+  <ExampleApplication />
+</ErrorBoundary>
+```
